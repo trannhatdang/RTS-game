@@ -25,16 +25,24 @@
 
 #include "raylib.h"
 #include "screens.h"
+#include "unit.h"
 
 //----------------------------------------------------------------------------------
 // Module Variables Definition (local)
 //----------------------------------------------------------------------------------
+//
+
+
 static int framesCounter = 0;
 static int finishScreen = 0;
+static Unit* chosenUnit = NULL;
 
 //----------------------------------------------------------------------------------
 // Gameplay Screen Functions Definition
 //----------------------------------------------------------------------------------
+//
+//
+//
 
 // Gameplay Screen Initialization logic
 void InitGameplayScreen(void)
@@ -47,30 +55,52 @@ void InitGameplayScreen(void)
 // Gameplay Screen Update logic
 void UpdateGameplayScreen(void)
 {
-    // TODO: Update GAMEPLAY screen variables here!
+	// TODO: Update GAMEPLAY screen variables here!
 
-    // Press enter or tap to change to ENDING screen
-    if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
-    {
-        finishScreen = 1;
-        PlaySound(fxCoin);
-    }
+	// Press enter or tap to change to ENDING screen
+	
+	Vector2 mousePos = GetMousePosition();
+	if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
+	{
+		finishScreen = 1;
+		PlaySound(fxCoin);
+	}
+	if(IsKeyPressed(KEY_F))
+	{
+		Unit* unit = SpawnUnit(WARRIOR);
+		PlaySound(fxCoin);
+	}
+
+	if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+	{
+		chosenUnit = FindCloseUnit(mousePos);
+	}
+
+	if(IsMouseButtonPressed(MOUSE_BUTTON_RIGHT) && chosenUnit != NULL)
+	{
+		chosenUnit->velocity = Vector2Normalize(mousePos - chosenUnit->position);
+	}
+
+	UpdateUnits();
 }
 
 // Gameplay Screen Draw logic
 void DrawGameplayScreen(void)
 {
-    // TODO: Draw GAMEPLAY screen here!
-    DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), PURPLE);
-    Vector2 pos = { 20, 10 };
-    DrawTextEx(font, "GAMEPLAY SCREEN", pos, font.baseSize*3.0f, 4, MAROON);
-    DrawText("PRESS ENTER or TAP to JUMP to ENDING SCREEN", 130, 220, 20, MAROON);
+	// TODO: Draw GAMEPLAY screen here!
+	DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), PURPLE);
+	Vector2 pos = { 20, 10 };
+	//DrawTextEx(font, "GAMEPLAY SCREEN", pos, font.baseSize*3.0f, 4, MAROON);
+	//DrawText("PRESS ENTER or TAP to JUMP to ENDING SCREEN", 130, 220, 20, MAROON);
+
+	DrawRectangle(pos.x, pos.y, 10, 10, WHITE);
 }
 
 // Gameplay Screen Unload logic
 void UnloadGameplayScreen(void)
 {
-    // TODO: Unload GAMEPLAY screen variables here!
+	// TODO: Unload GAMEPLAY screen variables here!
+	FreeUnits(units, numUnits);
 }
 
 // Gameplay Screen should finish?
