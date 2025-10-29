@@ -1,28 +1,28 @@
-## $(Rando RTS Game For Study)
+## Rando RTS Game For Study
 
 ![$(Game Title)](screenshots/screenshot000.png "$(Game Title)")
 
 ### Description
 
-$(Your Units can move, they might fight)
+Your Units can move, they might fight
 
 ### Features
 
- - $(Boring building)
- - $(Half-bit graphics)
- - $(My laziness)
+ - Boring building
+ - Half-bit graphics
+ - My laziness
 
 ### Controls
 
- - $(Mouse)
- - $(Eyes)
- - $(Sodium Chloride)
+ - Mouse
+ - Eyes
+ - Sodium Chloride
 
 ### Screenshots
 
 ### Developers
 
- - $(World's laziest game dev)
+ - World's laziest game dev
 
 ### Links
 
